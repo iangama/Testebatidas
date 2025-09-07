@@ -1,15 +1,12 @@
-# Node
-node_modules
-npm-debug.log*
-.pnpm-store
+# Ignorar dependências
+node_modules/
 
-# Editor
-.vscode
-.idea
+# Ignorar arquivos de build
+dist/
 
-# Builds
-dist
+# Ignorar storage (exports, db etc.)
+storage/
+
+# Logs
 *.log
-
-# Exports
-/storage/exports
+npm-debug.log*

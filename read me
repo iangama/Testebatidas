@@ -1,0 +1,101 @@
+==================================================
+BeatGen - Gerador de Batidas Musicais (React + Tone.js + Node + Docker)
+==================================================
+
+Descrição
+---------
+BeatGen é um projeto full-stack avançado que combina síntese e reprodução de áudio em tempo real
+com uma arquitetura moderna em containers. O usuário monta batidas (lo-fi, trap, rock, etc.),
+ouve loops no navegador e exporta em formato .wav (cliente) ou .midi (via backend).
+
+Stack
+-----
+- Frontend: React + Vite + Tailwind CSS
+- Áudio: Tone.js (Web Audio API) com suporte a samples WAV e síntese de fallback
+- Backend: Node.js (Express) + midi-writer-js
+- Proxy: Nginx (roteando /api e /exports)
+- Orquestração: Docker Compose (API + Web)
+- Armazenamento: volume local persistente para exports
+
+Funcionalidades
+---------------
+- Sequenciador de 16 passos com swing e acentuação
+- Estilos pré-definidos: Lo-Fi, Trap, Rock
+- Botão de aleatorizar padrões
+- Exportação de batidas em:
+  - .wav (gravado no navegador, com FX e humanização)
+  - .midi (gerado pelo backend, armazenado em storage/exports)
+- Presets simples (CRUD no backend)
+- Suporte a samples customizados (kick.wav, snare.wav, hihat.wav) via volume Docker
+
+Pré-requisitos
+--------------
+- Docker e Docker Compose instalados no ambiente
+- Git (para clonar e versionar o projeto)
+
+Instalação e Execução
+---------------------
+1. Clone o repositório:
+   git clone https://github.com/iangama/Testebatidas.git
+   cd Testebatidas
+
+2. Suba os containers:
+   docker compose up -d --build
+
+3. Acesse no navegador:
+   Frontend: http://localhost:8080
+
+4. Coloque seus samples (opcional):
+   Copie arquivos kick.wav, snare.wav e hihat.wav em:
+   ./web/public/samples/
+   (eles são mapeados para dentro do container sem rebuild)
+
+Estrutura de Pastas
+-------------------
+Testebatidas/
+│
+├── api/                  # backend Node/Express
+│   ├── src/server.js     # servidor e rotas
+│   └── package.json
+│
+├── web/                  # frontend React + Vite + Tailwind
+│   ├── src/              # componentes React
+│   ├── public/samples/   # samples WAV customizados
+│   └── package.json
+│
+├── storage/exports/      # arquivos MIDI exportados
+├── docker-compose.yml    # orquestração dos serviços
+└── README.txt            # este arquivo
+
+Comandos Úteis
+--------------
+- Ver logs:
+  docker compose logs -f api
+  docker compose logs -f web
+
+- Derrubar containers:
+  docker compose down -v
+
+- Limpar imagens não usadas:
+  docker system prune -f
+
+Nível de Complexidade
+---------------------
+Este projeto é classificado como **Avançado** no portfólio, pois combina:
+- Frontend moderno + backend em Node
+- Processamento de áudio em tempo real
+- Arquitetura em containers com proxy reverso
+- Persistência e exportação de dados
+
+Para evoluir ao nível "Produto":
+- Adicionar autenticação/usuários
+- Persistência em banco de dados (Postgres/Redis)
+- Testes automatizados e CI/CD
+- Deploy em nuvem com SSL/HTTPS
+- UX/UI refinada e responsiva
+
+Autor
+-----
+- Desenvolvido por Ian (github.com/iangama)
+
+==================================================

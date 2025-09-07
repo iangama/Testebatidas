@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: beatgen-api
+    environment:
+      - NODE_ENV=production
+      - PORT=4100
+    volumes:
+      - ./storage/exports:/app/storage/exports
+    expose:
+      - "4100"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:4100/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: beatgen-web
+    ports:
+      - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      # trocar/ampliar samples sem rebuild:
+      - ./web/public/samples:/usr/share/nginx/html/samples:ro

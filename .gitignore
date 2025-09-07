@@ -1,0 +1,15 @@
+# Node
+node_modules
+npm-debug.log*
+.pnpm-store
+
+# Editor
+.vscode
+.idea
+
+# Builds
+dist
+*.log
+
+# Exports
+/storage/exports
